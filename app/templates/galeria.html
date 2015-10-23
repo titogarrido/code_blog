@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-sm-2 console">
+            <ul>
+                <li>/home</li>
+            </ul>
+        </div>
+
+        {% for foto in fotos %}
+        <div class="col-xs-1 col-md-1">
+            <a href="#" class="thumbnail">
+                <img src="{{ foto.id|get_image_url }}" onclick="window.opener.CKEDITOR.tools.callFunction( '{{ request.args.get('CKEditorFuncNum') }}', '{{ foto.id|get_image_url }}' );window.close();">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

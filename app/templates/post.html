@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% from "_formhelpers.html" import render_field %}
+{% block content %}
+
+    <div id="post" class="col-sm-8 console">
+        <p id="title"><a href="{{ url_for('post', slug=p.slug) }}">{{ p.title }}</a> ({{ p.published_date.strftime('%d/%m/%Y %H:%M') }})</p>
+
+        <p id="short_description">{{ p.content|sanitize_html }}</p>
+
+
+        {% if p.comments %}
+            {% for comment in p.comments %}
+                <p>{{ comment.body }}</p>
+                <p><strong>{{ comment.author }}</strong> <small>on {{ comment.published_date.strftime('%H:%M %Y-%m-%d') }}</small></p>
+                {{ comment.content|sanitize_html }}
+            {% endfor %}
+        {% endif %}
+        <form method=post action="/post/{{ p.slug }}">
+            {{ form.csrf_token }}
+            <dl>
+                {{ render_field(form.author) }}
+                {{ render_field(form.content) }}
+            </dl>
+            <p><input type=submit value="Submit">
+        </form>
+    </div>
+{% endblock %}

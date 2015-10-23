@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div id="main_content" class="container-fluid">
+    <div id="side_menu" class="row">
+        <div class="col-sm-12 console">
+            {% if current_user.is_authenticated() %}
+                <span id="a">tito@{{ request.host }}</span>:<span id="b">~</span><span id="c">#</span> cat /{{ request.base_url.split('/')[-1]}}
+            {% else %}
+                <span id="a">guest@{{ request.host }}</span>:<span id="b">~</span><span id="c">$</span> cat index.html
+            {% endif %}
+        </div>
+    </div>
+    <hr/>
+    <div id="posts" class="row">
+        <div class="col-sm-2 console">
+            ls /
+            <ul>
+                <li><a href="{{ url_for('security.login') }}">/root</a></li>
+                <li><a href="{{ url_for('index') }}">/home</a></li>
+                {% for t in tags %}
+                <li>/opt/{{ t }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% block content%}<!-- page content -->{% endblock%}
+    </div>
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
+
+<footer>
+
+</footer>
+</body>
+</html>

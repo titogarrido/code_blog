@@ -1,0 +1,9 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+    <div class="col-sm-8 console">
+            <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+                <input type=file name=photo>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div id="post" class="col-sm-8 console">
+        {% for p in paginated_posts %}
+            <p id="title"><a href="{{ url_for('post', slug=p.slug) }}">{{ p.title }}</a> ({{ p.published_date.strftime('%d/%m/%Y %H:%M') }})</p>
+
+            <p id="short_description">{{ p.content|truncate_html|sanitize_html }}</p>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

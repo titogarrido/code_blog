@@ -1,0 +1,26 @@
+{% extends 'admin/model/edit.html' %}
+
+
+
+{% block tail %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace( 'content', {
+            filebrowserBrowseUrl: '/galeria',
+            filebrowserUploadUrl: '/upload'
+        });
+    </script>
+    <script>
+        var title = $('#title'), slug = $('#slug');
+
+        title.on('keyup', function() {
+            var val = $(this).val();
+            val = val.toLowerCase()
+                    .replace(/-/g, '_')
+                    .replace(/ /g, '-')
+                    .replace(/[^a-z_\-]/g, '');
+            slug.val(val);
+        });
+    </script>
+{% endblock %}
